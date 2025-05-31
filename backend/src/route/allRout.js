@@ -103,45 +103,8 @@ res.status(200).json({mess:'login not success',e:e.message,success:false})
 })
 
 
-// Mailtrap transporter
-//  route.post('/send-confirmation', async (req, res) => {
-//   const { email } = req.body;
-// console.log(email)
-//   try {
-
-//     const transporter = nodemailer.createTransport({
-//   host: 'smtp.gmail.com',
-//   port: 465,
-//       secure: true,
-
-//   auth: {
-//     user:"ankurmakaut2022@gmail.com",
-//     pass:"wwru gwja jsgr mtao"
-//   }
-// });
-//      await transporter.sendMail({
-//       from: "ankurmakaut2022@gmail.com",
-//       to: 'shubhamkumar.gdsc@gmail.com',
-//   subject: 'Order Confirmation - Thank you for your purchase!',
-//   html: `
-//     <h2>Thank you for your order!</h2>
-//     <p>Your order has been received and is being processed.</p>
-//     <p>You can confirm your order by clicking the button below:</p>
-//     <a href="http://localhost:3001/order-confirmed" style="padding: 10px 20px; background-color: #4CAF50; color: white; text-decoration: none; border-radius: 5px;">
-//       Confirm Order
-//     </a>
-//     <p>If you did not place this order, please ignore this email.</p>
-//   `
-//     });
-
-//     console.log('sasm')
-//     res.status(200).json({ message: 'Confirmation email sent!' });
-//   } catch (error) {
-//     console.error(error);
-//     res.status(500).json({ message: 'Failed to send email.' });
-//   }
-// });
-
+ 
+// order confirm by email
  
 route.post('/send-confirmation',async(req,res)=>{
 
@@ -159,7 +122,7 @@ route.post('/send-confirmation',async(req,res)=>{
       secure: true,
       auth: {
         user: "ankurmakaut2022@gmail.com",
-        pass: "wwru gwja jsgr mtao",
+        pass:process.env.PASSKEY,
       },
     });
 
