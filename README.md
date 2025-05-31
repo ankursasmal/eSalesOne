@@ -1,5 +1,5 @@
 *** folder structure ***
-    powsome-> 
+    esalesOne
        |->front 
         |->backend
 
@@ -13,5 +13,6 @@
        |-> npm install 
         |->npm start
  
+
 
  
