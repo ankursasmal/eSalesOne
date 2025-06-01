@@ -129,8 +129,8 @@ route.post('/send-confirmation',async(req,res)=>{
     await transporter.sendMail({
       from: "ankurmakaut2022@gmail.com",
       to: data,
-      subject: "New Onboarding Request from Client",
-      text: `You received a new onboarding request:\n\n${content}`,
+      subject: "order comfirm ",
+      text: `You comfirmation  received for order :\n\n${content}`,
     });
 
    res.json({ message: "Email sent successfully" });
