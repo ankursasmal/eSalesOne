@@ -9,7 +9,7 @@ let cors = require('cors')
 const bodyParser = require('body-parser');
 
  
-let PORT=process.env.PORT || 3000;
+let PORT=process.env.PORT || 8000;
 
 //1. for postman data (postman ,react) *** for big size of data must declear limit and bodyParser install 
 app.use(bodyParser.json({ limit: '10mb' }));
@@ -17,7 +17,7 @@ app.use(bodyParser.urlencoded({ limit: '10mb', extended: true }));//2. ****** ht
  
 // froned full urlhola cors use hoba (1.install) (2.middle wear)
 app.use(cors({
-    origin: 'http://localhost:3001',  
+    origin: 'http://localhost:3000',  
     methods: ['GET', 'POST', 'PUT', 'DELETE'], 
     allowedHeaders: ['Content-Type', 'Authorization'], 
    credentials: true, 

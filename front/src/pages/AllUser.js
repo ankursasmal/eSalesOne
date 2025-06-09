@@ -32,7 +32,8 @@ console.log('error',e.message)
   // id pass to props 
   let hndelPassIdForEdit=(id)=>{
 setId(id);
-  }
+setShow(false)
+   }
  
   return (
     <div className=' mt-[14vw] md:mt-[9vw] ml-0  ' >
@@ -49,7 +50,7 @@ setId(id);
         </thead>
         <tbody>
           {
-           user.map((val, i) => {
+           user?.map((val, i) => {
             return(
             <tr key={i} >
               <td >{i + 1}</td>
@@ -57,7 +58,7 @@ setId(id);
               <td className='text-[1.6vw] md:[text-1.7vw]'>{val?.email}</td>
               <td className='text-[1.6vw] md:[text-1.7vw]'>{val?.role}</td>
               <td className='text-[1.6vw] md:[text-1.7vw]'>{monent(val?.date).format('LL')}</td> 
-              <td className='bg-blue-500 text-gray-500 hover:text-red-500 hover:bg-white w-[70%] md:w-[100%] h-[100%] rounded-full text-[1.6vw] '  onClick={()=>hndelPassIdForEdit(val._id)}><FaPen/></td> 
+              <td className='bg-blue-500 text-gray-500 hover:text-red-500 hover:bg-white w-[70%] md:w-[100%] h-[100%] rounded-full text-[1.6vw] cursor-pointer'  onClick={()=>hndelPassIdForEdit(val._id)}><FaPen/></td> 
             </tr>
             )
 })

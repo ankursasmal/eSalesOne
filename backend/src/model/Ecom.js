@@ -16,14 +16,18 @@ let userSchema= new mongoose.Schema({
             }
         },
  
-    }, password:{
+    },
+    
+    googleId:{
+            type:String,
+
+    },
+    password:{
         type:String,
-        required:true,
-     },
+      },
     cpassword:{
         type:String,
-        required:true,
-     },
+      },
      role:{     
            type:String,
      },

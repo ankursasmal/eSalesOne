@@ -14,6 +14,7 @@ export const userSlice = createSlice({
   reducers: {
    setUserDetails: (state,action)=>{
     //it pass to frontende
+    // console.log(action.payload,"kkwjodwqddwq")
     state.user=action.payload;
     // console.log( "redux tooktit stored dta",action.payload);
    },

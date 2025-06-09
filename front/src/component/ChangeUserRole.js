@@ -35,7 +35,7 @@ useEffect(()=>{
 let GetuseRDetailWhichEdit=async()=>{
   try{
     // console.log(EditId)
-    let res=await fetch(`http://localhost:3000/specific-user/${EditId}`,{
+    let res=await fetch(`http://localhost:8000/specific-user/${EditId}`,{
       method:'GET',
       credentials:'include'
     });
@@ -65,7 +65,7 @@ try{
   // reduxtool kit thaka login user detail chack is role =Admin thhen operatin preform
   if(PresentLOginUser.role==='ADMIN'){
     console.log('ankur')
-  let res=await fetch(`http://localhost:3000/user-update/${EditId}`,{
+  let res=await fetch(`http://localhost:8000/user-update/${EditId}`,{
     method:'PUT',
     headers:{
       'Content-Type':'application/json'
@@ -78,6 +78,7 @@ role:roleChange
    });
    let data=await res.json();
    if(data.success){
+    GetuseRDetailWhichEdit();
     console.log('update successfull');
     toast.success('update successfull')
    }
@@ -97,7 +98,7 @@ catch(e){
  
   return (
     <div className='flex w-full justify-center items-center mt-[4vw]'  >
-     {show?  
+     {show===false?  
       <>
      { Object.values(EditedUser).map((val)=>{
       return (

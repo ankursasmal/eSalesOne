@@ -1,6 +1,6 @@
 import CatagoryList from "../component/CatagoryList";
 
-const BackendDomin='http://localhost:3000'
+const BackendDomin='http://localhost:8000'
 
 const SummeryApi={
     signUp:{

@@ -11,8 +11,13 @@ let cartModel=require('../model/CartModel.js');
 const DeliveyAdd = require('../model/DeliveryAdd.js');
 const DeliveredOrderModel = require('../model/Order.js');
  const nodemailer = require('nodemailer');
+// for google auth
+require('../utils/googleAuth.js')
+const passport=require('passport');
 
 route.use(cookie());
+// must for auth2.0
+route.use(passport.initialize());
 
 route.get('/',(req,res)=>{
     res.send('ok')
@@ -104,14 +109,13 @@ res.status(200).json({mess:'login not success',e:e.message,success:false})
 
 
  
-// order confirm by email
+// order confirm by email nodemailer
  
 route.post('/send-confirmation',async(req,res)=>{
 
- 
-  const data =  req.body;
-
-  const content = Object.entries(data)
+   const data =  req.body;
+// console.log(data.email)
+  const content = Object.entries(data.email)
     .map(([key, value]) => `• ${key}: ${value ?? "N/A"}`)
     .join("\n");
 
@@ -128,17 +132,70 @@ route.post('/send-confirmation',async(req,res)=>{
 
     await transporter.sendMail({
       from: "ankurmakaut2022@gmail.com",
-      to: data,
+      to: data.email,
       subject: "order comfirm ",
       text: `You comfirmation  received for order :\n\n${content}`,
     });
 
-   res.json({ message: "Email sent successfully" });
+   res.json({ message: "Email sent successfully" ,success:true});
   } catch (error) {
     console.error("Email send error:", error);
-    res.json({ message: "Failed to send email" }, { status: 500 });
+    res.json({ message: "Failed to send email" ,success:false}, { status: 500 });
   }
 })
+
+
+// ################################################
+// OAuth google com  => for express session 
+// route.get('/auth/google',
+//   passport.authenticate('google', { scope: ['email','profile'] }));
+  
+// // this req send frontend rouet => this route call from utiles/googleAuth.js automatic
+// route.get('/auth/google/callback',
+//   passport.authenticate('google', {
+//     successRedirect: 'http://localhost:3000/home',  
+//     failureRedirect: 'http://localhost:3000/login',
+//   })
+// );
+
+// *******************************************************
+
+// for jwt tokon integression with google auth20
+route.get('/auth/google',
+  passport.authenticate('google', { scope: ['email','profile'] }));
+  
+// this req send frontend rouet => this route call from utiles/googleAuth.js automatic
+ 
+route.get('/auth/google/callback', 
+  passport.authenticate('google', { session: false, failureRedirect: 'http://localhost:3000/login' }),
+  (req, res) => {
+          const user = req.user;
+
+    // JWT creation
+    const token = jwt.sign({ _id: user._id, email: user.email }, '3y2yxhx829299292hc2rhh9h2rhcj9j2rj9r9rj92', { expiresIn: '1h' });
+
+    // Set the JWT in a secure cookie
+    res.cookie('jwt', token, {
+      httpOnly: true,
+      secure: false, // set to true in production (HTTPS)
+      sameSite: 'Lax',
+    });
+
+    // // Redirect to frontend
+    res.redirect('http://localhost:3000/home');
+  }
+);
+
+
+// ************* payment gateway *****************
+route.post('/payment-callback', (req, res) => {
+  console.log('Payment Callback:', req.body);
+  res.sendStatus(200);
+});
+//*********************** */
+
+
+
 
  // bocome a seller and also update role in admin
  route.put('/adminUpdate/:id',auth,async(req,res)=>{

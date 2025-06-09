@@ -1,9 +1,10 @@
 import React, { useContext, useState } from 'react'
-import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import SummeryApi from '../commonApi';
 // import imgtObase64 from '../imgConvert/imgt0base64';
 import { toast } from 'react-toastify';
  import { Context } from '../App';
+import { useEffect } from 'react';
 
 function Login() {
 let navigate=useNavigate();
@@ -37,8 +38,8 @@ let result= await res.json()
   if(result.success){
     toast.success('Login sucesful in fronteneed');
     navigate('/home');
-    AuthUserDetail();
-    fetchAddCartCount();
+     AuthUserDetail();
+     fetchAddCartCount();
 }
 
  else{
@@ -53,6 +54,13 @@ navigate('/signup')
  console.log('reg not success in frontened',e)
  }
 }
+
+// for gooogle sign up
+let handelGoogleSignup=()=>{
+      window.location.href = 'http://localhost:8000/auth/google';
+      
+}
+ 
 
  
  return (
@@ -74,6 +82,9 @@ navigate('/signup')
      <Link to='/signup' className='text-blue-600'>SignUp</Link> 
       </div> 
 
+ <div className='flex items-center justify-center w-[100%] h-2 rounded-lg border-[.5px] py-[1.2rem] mt-5 bg-slate-300 cursor-pointer' onClick={handelGoogleSignup}> 
+     <a className='font-semibold  '>signup with <span className='text-blue-600'>Google</span></a>
+       </div> 
         </form>
      </center>
   )

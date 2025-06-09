@@ -52,7 +52,7 @@ let res= await fetch(SummeryApi.Logout.url,{
 </div> 
     <div className=' w-[15vw]'>
 
-      {user?
+      {user.email?
      <div   className='flex justify-center flex-col mb-2'>
       <a className='font-semibold  text-center text-[2.3vw] text-blue-400'>{user.name}</a>
       <a className='font-semibold text-center  text-[2.3vw]'>{user.role}</a>

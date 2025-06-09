@@ -5,37 +5,16 @@ import { toast } from 'react-toastify';
 import { Link, useNavigate } from 'react-router-dom';
 import { Context } from '../App';
 import { useSelector } from 'react-redux';
+import { handleSend } from '../Sand_mail';
 
 function PaymentSuccess() {
     let {fetchAddCartCount}=useContext(Context);
     // console.log(fetchAddCartCount)
       let user=useSelector(state=>state?.user?.user);
   const [status, setStatus] = useState('');
+  let navigate=useNavigate();
 
- let navigate=useNavigate();
-
-// for mail
-    const handleSend = async () => {
-  try {
-    const res = await fetch(SummeryApi.SendMAil.url, {
-      method: SummeryApi.SendMAil.method,
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({email:user.email }),
-    });
-
-    const result = await res.json();
-
-    if (res.ok) {
-      setStatus(result.message);
-    } else {
-      setStatus('Failed to send email.');
-    }
-  } catch (err) {
-    setStatus('Failed to send email.');
-  }
-};
+ 
 
     let handeldeleteCartData=async()=>{
         try{
@@ -46,9 +25,10 @@ let res=await fetch(SummeryApi.EmptyCart.url,{
 //  console.log(res)
 let result=await res.json();
 if(result.success){
-    fetchAddCartCount();
-    // handleSend();
-    navigate('/home');
+  // for send conformation email
+     await  handleSend(user.email);
+  fetchAddCartCount();
+     navigate('/home');
 }
         }
         catch(e){
