@@ -14,7 +14,7 @@ const imgtObase64 = async (image) => {
       console.error('FileReader error:', error);
     };
   
-    reader.readAsDataURL(image);
+    reader.readAsDataURL(image)
   
     const imgData = await new Promise((resolve, reject) => {
       reader.onload = () => resolve(reader.result);
