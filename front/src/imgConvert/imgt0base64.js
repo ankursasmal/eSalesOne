@@ -4,7 +4,7 @@ const imgtObase64 = async (image) => {
       return;
     }
   
-    const reader = new FileReader();
+    const reader = new FileReader()
   
     reader.onload = () => {
       console.log('Base64 Image:', reader.result); // Log base64 image directly
